@@ -1,0 +1,13 @@
+.venv/
+.uv-cache/
+.npm-cache/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.env
+data/
+*.egg-info/
+dist/
+node_modules/
+playwright-report/

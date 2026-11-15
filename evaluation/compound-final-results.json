@@ -1,0 +1,247 @@
+{
+  "timestamp_utc": "2026-11-15T12:15:37.403273+00:00",
+  "live_llm": true,
+  "model": "openai/gpt-oss-20b",
+  "embedding_backend": "sentence-transformers",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "reranker": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "adaptive_retrieval": true,
+  "grounding_reflection": true,
+  "corpus": "public",
+  "corpus_documents": [
+    {
+      "name": "nist-ai-rmf-1.0.pdf",
+      "pages": 48,
+      "chunks": 120,
+      "sha": "7576edb531d9848825814ee88e28b1795d3a84b435b4b797d3670eafdc4a89f1"
+    },
+    {
+      "name": "nist-genai-profile.pdf",
+      "pages": 64,
+      "chunks": 160,
+      "sha": "6e73620ab6b64e90ef2c04bf0e0d6246185a2f4b1b13cab0df494496cff89b6a"
+    }
+  ],
+  "caveats": [
+    "Expected-term matching is a diagnostic, not semantic answer correctness.",
+    "Page recall is not passage-level recall or citation entailment.",
+    "Verifier uses the same LLM and is not independent proof of grounding.",
+    "Cold model load is included in first retrieval; later cases are warm."
+  ],
+  "metrics": {
+    "bm25_all_answerable_page_recall_at_5": 0.0,
+    "bm25_cross_document_page_recall_at_5": 0.0,
+    "hybrid_all_answerable_page_recall_at_5": 0.0,
+    "hybrid_cross_document_page_recall_at_5": 0.0,
+    "completed": 1,
+    "errors": 0,
+    "expected_term_pass_rate": 1,
+    "unanswerable_abstention_rate": null,
+    "answerable_abstention_rate": 0,
+    "mean_cited_expected_page_recall": 0.5,
+    "median_total_ms": 8492
+  },
+  "cases": [
+    {
+      "id": "N04",
+      "kind": "cross_document",
+      "question": "What is the purpose of the AI RMF 1.0, and how does the Generative AI Profile describe the risk of confabulation?",
+      "retrieval": {
+        "bm25": {
+          "page_recall_at_5": 0.0,
+          "all_expected_pages": false,
+          "pages": [
+            [
+              "nist-ai-rmf-1.0.pdf",
+              38
+            ],
+            [
+              "nist-ai-rmf-1.0.pdf",
+              39
+            ],
+            [
+              "nist-genai-profile.pdf",
+              1
+            ],
+            [
+              "nist-genai-profile.pdf",
+              5
+            ]
+          ]
+        },
+        "hybrid": {
+          "page_recall_at_5": 0.0,
+          "all_expected_pages": false,
+          "pages": [
+            [
+              "nist-ai-rmf-1.0.pdf",
+              9
+            ],
+            [
+              "nist-ai-rmf-1.0.pdf",
+              39
+            ],
+            [
+              "nist-ai-rmf-1.0.pdf",
+              47
+            ],
+            [
+              "nist-genai-profile.pdf",
+              5
+            ]
+          ]
+        }
+      },
+      "response": {
+        "status": "answered",
+        "answer": "The AI RMF 1.0 is a risk\u2011based, voluntary framework designed to help organizations incorporate trustworthiness considerations into the design, development, use, and evaluation of AI products, services, and systems. [1] [6] [7]\n\nThe Generative AI Profile describes the risk of confabulation as the potential for GAI to produce false content that users may believe to be true, often because the system presents it with confidence, leading to incorrect decisions or actions, especially in consequential contexts such as healthcare. [5]",
+        "claims": [
+          {
+            "text": "The AI RMF 1.0 is a risk\u2011based, voluntary framework designed to help organizations incorporate trustworthiness considerations into the design, development, use, and evaluation of AI products, services, and systems.",
+            "sources": [
+              1,
+              6,
+              7
+            ]
+          },
+          {
+            "text": "The Generative AI Profile describes the risk of confabulation as the potential for GAI to produce false content that users may believe to be true, often because the system presents it with confidence, leading to incorrect decisions or actions, especially in consequential contexts such as healthcare.",
+            "sources": [
+              5
+            ]
+          }
+        ],
+        "note": "",
+        "sources": [
+          {
+            "number": 1,
+            "document_id": "52dd3d8e7c564b49a686f65ea581f077",
+            "name": "nist-ai-rmf-1.0.pdf",
+            "page": 6,
+            "text": "NIST AI 100-1 AI RMF 1.0 Executive Summary Artificial intelligence (AI) technologies have significant potential to transform society and people\u2019s lives \u2013 from commerce and health to transportation and cybersecurity to the environment and our planet. AI technologies can drive inclusive economic growth and support scientific advancements that improve the conditions of our world. AI technologies, however, also pose risks that can negatively impact individuals, groups, organizations, communities, society, the environment, and the planet. Like risks for other types of technology, AI risks can emerge in a variety of ways and can be characterized as long- or short-term, highor low-probability, systemic or localized, and high- or low-impact. The AI RMF refers to an AI system as an engineered or machine-based system that can, for a given set of objectives, generate outputs such as predictions, recommendations, or decisions influencing real or virtual environments. AI systems are designed to operate with varying levels of autonomy (Adapted from: OECD Recommendation on AI:2019; ISO/IEC 22989:2022). While there are myriad standards and best practices to help organizations mitigate the risks of traditional software or information-based",
+            "cited": true,
+            "rank_score": 0.02762,
+            "semantic_score": 0.6137,
+            "rerank_score": 6.8074
+          },
+          {
+            "number": 2,
+            "document_id": "52dd3d8e7c564b49a686f65ea581f077",
+            "name": "nist-ai-rmf-1.0.pdf",
+            "page": 45,
+            "text": "NIST AI 100-1 AI RMF 1.0 Appendix C: AI Risk Management and Human-AI Interaction Organizations that design, develop, or deploy AI systems for use in operational settings may enhance their AI risk management by understanding current limitations of humanAI interaction. The AI RMF provides opportunities to clearly define and differentiate the various human roles and responsibilities when using, interacting with, or managing AI systems. Many of the data-driven approaches that AI systems rely on attempt to convert or represent individual and social observational and decision-making practices into measurable quantities. Representing complex human phenomena with mathematical models can come at the cost of removing necessary context. This loss of context may in turn make it difficult to understand individual and societal impacts that are key to AI risk management efforts. Issues that merit further consideration and research include: 1. Human roles and responsibilities in decision making and overseeing AI systems need to be clearly defined and differentiated. Human-AI configurations can span from fully autonomous to fully manual. AI systems can autonomously make decisions, defer decision making to a human expert, or",
+            "cited": false,
+            "rank_score": 0.02313,
+            "semantic_score": 0.4946,
+            "rerank_score": 6.6413
+          },
+          {
+            "number": 3,
+            "document_id": "b5bf6852207042c08dbca740201fddd8",
+            "name": "nist-genai-profile.pdf",
+            "page": 5,
+            "text": "1 1. Introduction This document is a cross-sectoral profile of and companion resource for the AI Risk Management Framework (AI RMF 1.0) for Generative AI,1 pursuant to President Biden\u2019s Executive Order (EO) 14110 on Safe, Secure, and Trustworthy Artificial Intelligence.2 The AI RMF was released in January 2023, and is intended for voluntary use and to improve the ability of organizations to incorporate trustworthiness considerations into the design, development, use, and evaluation of AI products, services, and systems. A profile is an implementation of the AI RMF functions, categories, and subcategories for a specific setting, application, or technology \u2013 in this case, Generative AI (GAI) \u2013 based on the requirements, risk tolerance, and resources of the Framework user. AI RMF profiles assist organizations in deciding how to best manage AI risks in a manner that is well-aligned with their goals, considers legal/regulatory requirements and best practices, and reflects risk management priorities. Consistent with other AI RMF profiles, this profile offers insights into how risk can be managed across various stages of the AI lifecycle and for GAI as a technology.",
+            "cited": false,
+            "rank_score": 0.02626,
+            "semantic_score": 0.5026,
+            "rerank_score": 6.555
+          },
+          {
+            "number": 4,
+            "document_id": "b5bf6852207042c08dbca740201fddd8",
+            "name": "nist-genai-profile.pdf",
+            "page": 5,
+            "text": "practices, and reflects risk management priorities. Consistent with other AI RMF profiles, this profile offers insights into how risk can be managed across various stages of the AI lifecycle and for GAI as a technology. As GAI covers risks of models or applications that can be used across use cases or sectors, this document is an AI RMF cross-sectoral profile. Cross-sectoral profiles can be used to govern, map, measure, and manage risks associated with activities or business processes common across sectors, such as the use of large language models (LLMs), cloud-based services, or acquisition. This document defines risks that are novel to or exacerbated by the use of GAI. After introducing and describing these risks, the document provides a set of suggested actions to help organizations govern, map, measure, and manage these risks. 1 EO 14110 defines Generative AI as \u201cthe class of AI models that emulate the structure and characteristics of input data in order to generate derived synthetic content. This can include images, videos, audio, text, and other digital content.\u201d While not all GAI is derived from foundation",
+            "cited": false,
+            "rank_score": 0.03126,
+            "semantic_score": 0.5591,
+            "rerank_score": 2.2307
+          },
+          {
+            "number": 5,
+            "document_id": "b5bf6852207042c08dbca740201fddd8",
+            "name": "nist-genai-profile.pdf",
+            "page": 10,
+            "text": "require highly contextual and/or domain expertise. Risks from confabulations may arise when users believe false content \u2013 often due to the confident nature of the response \u2013 leading users to act upon or promote the false information. This poses a challenge for many real-world applications, such as in healthcare, where a confabulated summary of patient information reports could cause doctors to make incorrect diagnoses and/or recommend the wrong treatments. Risks of confabulated content may be especially important to monitor when integrating GAI into applications involving consequential decision making. GAI outputs may also include confabulated logic or citations that purport to justify or explain the system\u2019s answer, which may further mislead humans into inappropriately trusting the system\u2019s output. For instance, LLMs sometimes provide logical steps for how they arrived at an answer even when the answer itself is incorrect. Similarly, an LLM could falsely assert that it is human or has human traits, potentially deceiving humans into believing they are speaking with another human. The extent to which humans can be deceived by LLMs, the mechanisms by which this may occur,",
+            "cited": true,
+            "rank_score": 0.01408,
+            "semantic_score": 0.4954,
+            "rerank_score": 0.5107
+          },
+          {
+            "number": 6,
+            "document_id": "52dd3d8e7c564b49a686f65ea581f077",
+            "name": "nist-ai-rmf-1.0.pdf",
+            "page": 9,
+            "text": "NIST AI 100-1 AI RMF 1.0 Part 1: Foundational Information 1. Framing Risk AI risk management offers a path to minimize potential negative impacts of AI systems, such as threats to civil liberties and rights, while also providing opportunities to maximize positive impacts. Addressing, documenting, and managing AI risks and potential negative impacts effectively can lead to more trustworthy AI systems. 1.1 Understanding and Addressing Risks, Impacts, and Harms In the context of the AI RMF, risk refers to the composite measure of an event\u2019s probability of occurring and the magnitude or degree of the consequences of the corresponding event. The impacts, or consequences, of AI systems can be positive, negative, or both and can result in opportunities or threats (Adapted from: ISO 31000:2018). When considering the negative impact of a potential event, risk is a function of 1) the negative impact, or magnitude of harm, that would arise if the circumstance or event occurs and 2) the likelihood of occurrence (Adapted from: OMB Circular A-130:2016). Negative impact or harm can be experienced by individuals, groups, communities, organizations, society, the",
+            "cited": true,
+            "rank_score": 0.02328,
+            "semantic_score": 0.5664,
+            "rerank_score": 3.7892
+          },
+          {
+            "number": 7,
+            "document_id": "52dd3d8e7c564b49a686f65ea581f077",
+            "name": "nist-ai-rmf-1.0.pdf",
+            "page": 47,
+            "text": "NIST AI 100-1 AI RMF 1.0 Appendix D: Attributes of the AI RMF NIST described several key attributes of the AI RMF when work on the Framework first began. These attributes have remained intact and were used to guide the AI RMF\u2019s development. They are provided here as a reference. The AI RMF strives to: 1. Be risk-based, resource-efficient, pro-innovation, and voluntary. 2. Be consensus-driven and developed and regularly updated through an open, transparent process. All stakeholders should have the opportunity to contribute to the AI RMF\u2019s development. 3. Use clear and plain language that is understandable by a broad audience, including senior executives, government officials, non-governmental organization leadership, and those who are not AI professionals \u2013 while still of sufficient technical depth to be useful to practitioners. The AI RMF should allow for communication of AI risks across an organization, between organizations, with customers, and to the public at large. 4. Provide common language and understanding to manage AI risks. The AI RMF should offer taxonomy, terminology, definitions, metrics, and characterizations for AI risk. 5. Be easily usable and",
+            "cited": true,
+            "rank_score": 0.02594,
+            "semantic_score": 0.6015,
+            "rerank_score": 3.3365
+          },
+          {
+            "number": 8,
+            "document_id": "52dd3d8e7c564b49a686f65ea581f077",
+            "name": "nist-ai-rmf-1.0.pdf",
+            "page": 39,
+            "text": "NIST AI 100-1 AI RMF 1.0 AI RMF cross-sectoral profiles cover risks of models or applications that can be used across use cases or sectors. Cross-sectoral profiles can also cover how to govern, map, measure, and manage risks for activities or business processes common across sectors such as the use of large language models, cloud-based services or acquisition. This Framework does not prescribe profile templates, allowing for flexibility in implementation. Page 34",
+            "cited": false,
+            "rank_score": 0.03062,
+            "semantic_score": 0.6088,
+            "rerank_score": 3.2737
+          }
+        ],
+        "standalone_question": "What is the purpose of the AI RMF 1.0, and how does the Generative AI Profile describe the risk of confabulation?",
+        "session_id": "1a905c8d0bf14ba1815a55d8ccbba5e2",
+        "document_ids": null,
+        "model": "openai/gpt-oss-20b",
+        "retrieval": "hybrid",
+        "embedding_backend": "sentence-transformers",
+        "trace": [
+          {
+            "stage": "retrieve",
+            "passages": 6
+          },
+          {
+            "stage": "decompose_query",
+            "queries": [
+              "What is the purpose of the AI RMF 1.0?",
+              "How does the Generative AI Profile describe the risk of confabulation?"
+            ],
+            "passages": 8
+          },
+          {
+            "stage": "assess_evidence",
+            "sufficient": true
+          },
+          {
+            "stage": "grounding_check",
+            "removed_claims": 0
+          }
+        ],
+        "timings": {
+          "rewrite_ms": 7,
+          "retrieval_ms": 4182,
+          "assessment_ms": 1713,
+          "generation_ms": 1186,
+          "verification_ms": 1394,
+          "total_ms": 8492
+        }
+      },
+      "expected_term_check": true,
+      "abstained": false,
+      "cited_expected_page_recall": 0.5
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+[
+  {"id":"N01","kind":"single","question":"What are the four core functions in the NIST AI RMF 1.0?","evidence":[["nist-ai-rmf-1.0.pdf",25]],"terms":[["govern"],["map"],["measure"],["manage"]]},
+  {"id":"N02","kind":"single","question":"Is the AI RMF 1.0 intended to be mandatory or voluntary?","evidence":[["nist-ai-rmf-1.0.pdf",7]],"terms":[["voluntary"]]},
+  {"id":"N03","kind":"single","question":"How does the Generative AI Profile define confabulation?","evidence":[["nist-genai-profile.pdf",10]],"terms":[["false","erroneous"],["confiden"]]},
+  {"id":"N04","kind":"cross_document","question":"What is the purpose of the AI RMF 1.0, and how does the Generative AI Profile describe the risk of confabulation?","evidence":[["nist-ai-rmf-1.0.pdf",7],["nist-genai-profile.pdf",10]],"terms":[["risk"],["false","erroneous"]]},
+  {"id":"N05","kind":"followup","history":["How does the Generative AI Profile define confabulation?"],"question":"Does that include contradicting earlier statements in the same context?","evidence":[["nist-genai-profile.pdf",10]],"terms":[["contradict"]]},
+  {"id":"N06","kind":"unanswerable","question":"What Groq API rate limit does Northstar's enterprise plan have?","evidence":[],"terms":[]}
+]

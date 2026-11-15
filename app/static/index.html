@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Folio · Document Intelligence</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Folio home"
+        ><span class="brand-mark">f.</span
+        ><span>folio<span class="brand-dot">.</span></span></a
+      >
+      <div class="workspace-label">DOCUMENT INTELLIGENCE</div>
+      <button id="new-chat" class="new-chat">
+        <span>＋</span> New conversation <kbd>↵</kbd>
+      </button>
+      <div class="section-heading">
+        YOUR LIBRARY <span id="doc-count">0</span>
+      </div>
+      <label id="dropzone" class="dropzone"
+        ><span class="upload-icon">↥</span><strong>Add PDF documents</strong
+        ><span>Drop files here or browse</span
+        ><small>PDF · up to 20 MB each</small
+        ><input id="files" type="file" accept="application/pdf,.pdf" multiple
+      /></label>
+      <div id="upload-status" class="muted" role="status"></div>
+      <div id="documents" class="document-list"></div>
+      <div class="section-heading history-heading">CONVERSATIONS</div>
+      <nav id="sessions" aria-label="Conversation history"></nav>
+      <div class="sidebar-footer">
+        <span class="local-dot"></span>
+        <div>
+          Stored on your device<small>PDFs & conversations stay local</small>
+        </div>
+        <button
+          id="settings-button"
+          class="icon-button"
+          aria-label="Workspace settings"
+        >
+          ⚙
+        </button>
+      </div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div>
+          <span class="breadcrumb">Workspace</span><span class="slash">/</span
+          ><span id="conversation-title">Document research</span>
+        </div>
+        <span class="model-pill"
+          ><span class="local-dot"></span
+          ><span id="model-label">Connecting…</span></span
+        >
+      </header>
+      <div id="notification" class="notification" role="alert" hidden></div>
+      <section id="welcome" class="welcome">
+        <div class="eyebrow">
+          <span></span> A LITTLE CLARITY, ACROSS EVERY PAGE
+        </div>
+        <h1>Your documents.<br />A clearer conversation<span>.</span></h1>
+        <p class="intro">
+          Find the answer across your PDFs. Follow the evidence.<br />Keep the
+          conversation going.
+        </p>
+        <div class="welcome-actions">
+          <button id="demo" class="primary">
+            Explore sample workspace <span>↗</span></button
+          ><button id="public-demo" class="source-chip">
+            Load NIST technical reports ↗</button
+          ><span class="demo-caption"
+            >Fictional policy examples or real public AI reports</span
+          >
+        </div>
+        <div class="suggestions">
+          <button
+            class="suggestion"
+            data-question="Compare the recovery objectives in the 2024 and 2025 incident policies."
+          >
+            <span class="suggestion-icon">⇄</span
+            ><strong>Connect the dots</strong
+            ><span
+              >Compare recovery objectives<br />across both incident
+              policies.</span
+            ><b>↗</b>
+          </button>
+          <button
+            class="suggestion"
+            data-question="What changed in the 2025 remote-work policy?"
+          >
+            <span class="suggestion-icon">≋</span
+            ><strong>Find what changed</strong
+            ><span
+              >Understand the new remote-work<br />rules and their
+              exceptions.</span
+            ><b>↗</b>
+          </button>
+          <button
+            class="suggestion"
+            data-question="What is the company's maternity leave entitlement?"
+          >
+            <span class="suggestion-icon">⌕</span
+            ><strong>Know the limits</strong
+            ><span
+              >Ask something the documents<br />might not be able to
+              answer.</span
+            ><b>↗</b>
+          </button>
+        </div>
+        <div class="principles">
+          <span><i>01</i> Answers with evidence</span
+          ><span><i>02</i> Context that carries forward</span
+          ><span><i>03</i> Clear when information is missing</span>
+        </div>
+      </section>
+      <section
+        id="messages"
+        class="messages"
+        aria-label="Chat messages"
+        aria-live="polite"
+      ></section>
+      <div class="composer-wrap">
+        <div id="scope-label" class="scope-label">
+          All documents <span>·</span> Select files in your library to narrow
+          the search
+        </div>
+        <form id="chat-form" class="composer">
+          <label class="sr-only" for="question"
+            >Ask a question about your documents</label
+          ><textarea
+            id="question"
+            rows="1"
+            placeholder="Ask your documents anything…"
+            maxlength="1500"
+          ></textarea>
+          <div class="composer-bottom">
+            <span
+              ><span class="paperclip">⌁</span>
+              <span id="composer-docs">No documents yet</span></span
+            ><button id="send" type="submit" aria-label="Send question">
+              ↑
+            </button>
+          </div>
+        </form>
+        <div class="composer-note">
+          Grounded in your documents. Always check the cited evidence.
+        </div>
+      </div>
+    </main>
+    <aside id="evidence-panel" class="evidence-panel" hidden>
+      <div class="evidence-heading">
+        <div>
+          <span class="eyebrow">BEHIND THE ANSWER</span>
+          <h2>Source evidence</h2>
+        </div>
+        <button
+          id="close-evidence"
+          class="icon-button"
+          aria-label="Close source evidence"
+        >
+          ×
+        </button>
+      </div>
+      <div id="evidence-content"></div>
+    </aside>
+    <dialog id="settings">
+      <form method="dialog">
+        <button class="dialog-close icon-button" aria-label="Close settings">
+          ×
+        </button>
+        <h2>Workspace settings</h2>
+        <p>
+          This app is a single-user document workspace. Model credentials are
+          configured on the server in <code>.env</code>.
+        </p>
+        <label
+          >Workspace access token<input
+            id="access-token"
+            type="password"
+            placeholder="Only if APP_ACCESS_TOKEN is set" /></label
+        ><button id="save-token" class="primary" value="save">
+          Save & reconnect
+        </button>
+        <p class="privacy-note">
+          When an LLM is configured, your question, recent conversation context,
+          and retrieved passages are sent to that provider. Original PDF files
+          and embeddings stay local.
+        </p>
+      </form>
+    </dialog>
+  </body>
+</html>
