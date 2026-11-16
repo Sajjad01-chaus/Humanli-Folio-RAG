@@ -32,7 +32,7 @@ the loop terminates even if every revision fails. A targeted live regression run
 The public corpus contains two original NIST reports, 112 physical PDF pages in total. The six
 authored cases test core functions, voluntariness, a definition, cross-document synthesis, a contextual
 follow-up, and an out-of-corpus question. `public-results.json` records actual live outputs and
-metrics when that run completes. Reference pages are not an exhaustive list of all valid passages.
+metrics from the completed run. Reference pages are not an exhaustive list of all valid passages.
 
 An earlier concurrent test encountered Groq HTTP 429 errors. Evaluations are run sequentially for the
 recorded reports; the application reports provider errors rather than generating a placeholder answer.
@@ -67,9 +67,9 @@ the same account quota. An interrupted 120B follow-up regression is not counted 
 
 ## Validity limits
 
-- The author created these questions after selecting the documents; this is not a blind benchmark.
+- I created these questions after selecting the documents; this is not a blind benchmark.
 - The same LLM generates and verifies claims; correlated errors remain possible.
 - Source-page recall is neither passage precision nor citation entailment.
 - Scanned-document OCR accuracy and complex-table reconstruction have not been quantitatively benchmarked.
 - Unit/integration test counts describe software behavior, not factual answer accuracy.
-- No state-of-the-art accuracy or general production-readiness claim is made.
+- I do not claim state-of-the-art accuracy or general production readiness.

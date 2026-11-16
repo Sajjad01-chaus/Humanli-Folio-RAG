@@ -103,7 +103,7 @@ class LLM:
         if self.encoding is None:
             os.environ.setdefault("TIKTOKEN_CACHE_DIR", str(self.settings.data_dir / "tokenizer-cache"))
             self.encoding = tiktoken.get_encoding("o200k_base")
-        # Approximate GPT-OSS input count with a conservative allowance for chat framing.
+        # I reserve extra tokens for chat framing because this count is approximate.
         count = (
             sum(len(self.encoding.encode(m["content"], disallowed_special=())) + 12 for m in messages) + 100
         )
@@ -286,7 +286,7 @@ class LLM:
         try:
             parsed = GeneratedAnswer.model_validate(result)
             if parsed.status == "answered":
-                # Notes describe missing information only; factual statements belong in cited claims.
+                # I keep factual statements in cited claims and reserve notes for missing information.
                 parsed.note = ""
             if parsed.status not in {"answered", "partial", "unavailable"}:
                 raise ValueError("Unknown status")

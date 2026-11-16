@@ -1,7 +1,8 @@
 # Folio
 ### Evidence-first conversations across your PDFs
 
-Folio is a submission for **Humanli.ai Assignment 3 — Intelligent Multi-Document RAG System**.
+I built Folio for **Humanli.ai Assignment 3 — Intelligent Multi-Document RAG System**.
+My focus is reliable answers backed by PDF evidence, useful follow-up conversations, and a codebase that is easy to run and inspect.
 Upload multiple PDFs, ask questions across them, follow page-level citations, and continue with
 contextual questions. Conversations survive application restarts. Missing evidence is handled explicitly.
 
@@ -38,21 +39,21 @@ No key? The application provides a visibly labeled evidence preview, not a simul
 For constrained machines, set `EMBEDDING_BACKEND=tfidf` and `RERANK_ENABLED=false`.
 This fallback is lexical retrieval and is labeled accordingly.
 
-## What is implemented
+## What I built
 
 - Multiple PDF uploads, duplicate detection, document selection, removal, and page-preserving extraction.
 - Local semantic retrieval + corpus-wide BM25, reciprocal rank fusion, and cross-encoder reranking.
 - History-aware question rewriting and SQLite-backed conversation persistence.
 - Bounded corrective retrieval: evidence grading followed by at most one reformulated document search.
 - Compound-question decomposition that searches distinct factual asks separately before synthesizing an answer.
-- An explicit LangGraph workflow adapted from the author's Cyber Ireland project, with tested retry limits.
+- An explicit LangGraph workflow adapted from my Cyber Ireland project, with tested retry limits.
 - Structured per-claim citations, citation-ID validation, and optional grounding reflection.
 - Answered, partial, unavailable, and explicitly labeled evidence-preview states.
 - An interface with conversation history, source excerpts, PDF page links, and retrieval/timing details.
 - Groq by default; configurable OpenAI-compatible providers and Ollama support.
 - Optional page-level OCR fallback for scanned PDFs.
 
-The corrective/reflective stages are inspired by those RAG patterns. This is **not** a reproduction of
+I adapted corrective and reflective RAG patterns for this workflow. I have not reproduced
 the original Self-RAG trained model or the complete CRAG research method. See [architecture](docs/ARCHITECTURE.md).
 
 ## Model configuration
@@ -80,7 +81,7 @@ pip install pypdfium2
 
 Set `OCR_ENABLED=true` and, if needed, `TESSERACT_CMD` to the executable path. OCR runs only on pages
 without useful embedded text. The Docker image includes Tesseract; enable OCR explicitly.
-English OCR is the supported default. No claim is made about arbitrary languages or complex layouts.
+English OCR is the supported default. I have not validated OCR for arbitrary languages or complex layouts.
 
 ## Verification and evaluation
 
@@ -93,18 +94,18 @@ python -m scripts.evaluate --live --delay 3         # real configured LLM, 30 ca
 python -m scripts.evaluate --live --basic --output evaluation/basic-results.json
 ```
 
-Tests exercise ingestion, page citations, duplicate handling, session isolation, restart persistence,
+I use automated tests to check ingestion, page citations, duplicate handling, session isolation, restart persistence,
 document filtering, deletion, malformed inputs, model failure, and invalid citations. Tests use a
 lexical backend and controlled model doubles; these are integration correctness tests, not model quality scores.
 
-The evaluation corpus has **three fictional PDFs and 30 authored cases**, including comparisons,
-follow-ups, exceptions, unanswerable questions, and an instruction-override attempt. It compares BM25
+I created **three fictional PDFs and 30 evaluation cases**, including comparisons,
+follow-ups, exceptions, unanswerable questions, and an instruction-override attempt. My evaluator compares BM25
 with hybrid retrieval on expected PDF page recall at five passages. Live runs record complete answers,
 expected-term diagnostics, cited expected-page recall, abstention, errors, and latency.
 
 **Interpretation:** expected-term checks are not semantic answer grading. Page recall is not citation
-entailment. A self-check by the same LLM is not independent evidence of correctness. This deliberately
-small authored corpus is a regression suite, not a generalization benchmark. Results and caveats are
+entailment. A self-check by the same LLM is not independent evidence of correctness. I use this deliberately
+small corpus for regression checks; it does not establish generalization to other documents. Results and caveats are
 stored alongside each run; model quality on your own reports needs separate review.
 Read [the evaluation review](evaluation/REVIEW.md) for measured initial results and analysis of failures.
 
@@ -112,8 +113,8 @@ See [sample provenance](samples/README.md), [architecture and tradeoffs](docs/AR
 [reviewer demo](docs/DEMO.md). The original sample text is CC0 and can be regenerated with
 `python -m scripts.make_samples` (requires the included ReportLab development dependency).
 
-The [engineering standards review](docs/ENGINEERING.md) documents typed contracts, dependency injection,
-structured logging, error propagation, and the cleanup performed before publication.
+I describe my approach to typed contracts, dependency injection, structured logging, and error
+propagation in [engineering decisions](docs/ENGINEERING.md).
 
 Two unmodified public NIST reports (112 physical PDF pages total) are also included, with source URLs
 and checksums. Click **Load NIST technical reports** in the app, or upload them manually. Evaluate them with:
@@ -128,8 +129,8 @@ delays or a later run if daily limits are reached. A rate-limit failure is recor
 
 Groq requests are serialized and paced using a configurable local token bucket. Input tokens are
 estimated with `o200k_base`, including a framing allowance; this is an approximation of the provider's
-accounting, not an exact guarantee. `PROVIDER_TOKENS_PER_MINUTE=8000` matches the free account used
-here; set it to your own limit. `MAX_INPUT_TOKENS=5500` bounds input. The limiter coordinates one
+accounting, not an exact guarantee. `PROVIDER_TOKENS_PER_MINUTE=8000` matches the free account I used
+for testing; set it to your own limit. `MAX_INPUT_TOKENS=5500` bounds input. The limiter coordinates one
 process only. Latencies include pacing and retry waits. GPT-OSS 20B is a supported lower-quota-cost
 alternative: set `LLM_MODEL=openai/gpt-oss-20b`. Results always identify the model actually used.
 
@@ -140,7 +141,8 @@ docker compose up --build
 ```
 
 Compose binds only to localhost and persists SQLite, uploads, and model cache in a named volume.
-The Docker deployment recipe must be smoke-tested on the target host before claiming deployment.
+I checked the Compose configuration, but have not verified the image build or container startup.
+The deployment recipe still needs a smoke test on the target host.
 
 ## Data handling and limits
 
@@ -166,15 +168,15 @@ previous answer excerpts; remove the conversation too if that history should no 
 app/                 API, ingestion, retrieval, generation, persistence, UI
 samples/             Source corpus, generated PDFs, provenance
 evaluation/          Authored questions and measured result artifacts
-tests/               Integration and behavioral regression tests
+tests/               Automated checks for API behavior, isolation, citations, and retry bounds
 scripts/             Sample generator, public-report downloader, evaluator
 docs/                Architecture, limitations, reviewer walkthrough
 ```
 
-This project reimplements and extends patterns from the author's
+I reimplemented and extended patterns from my earlier
 [Document_QnA_system](https://github.com/Sajjad01-chaus/Document_QnA_system), with corrected page metadata,
 persistent state, explicit citation checks, and reproducible verification.
-Its corrective-retrieval and reflection graph adapts the design in
+For corrective retrieval and reflection, I adapted my graph design from
 [Cyber-Ireland-Auto-RAG](https://github.com/Sajjad01-chaus/Cyber-Ireland-Auto-RAG/blob/main/graph.py).
-Its bounded query decomposition adapts the design in
+For bounded query decomposition, I adapted my design from
 [MultiLang_RAG](https://github.com/Sajjad01-chaus/MultiLang_RAG/blob/main/app/query_decomposer.py).

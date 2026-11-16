@@ -39,13 +39,13 @@ Scores are ranking signals; the UI does not present them as correctness probabil
 ## Correction and reflection
 
 Compound questions containing distinct asks are decomposed into at most three focused search queries.
-This adapts the author's `MultiLang_RAG/app/query_decomposer.py` design while avoiding naive splitting
+I adapted my `MultiLang_RAG/app/query_decomposer.py` design while avoiding naive splitting
 of every `and` (which damages date comparisons). Each subquery contributes up to three passages, then
 the merged context is deduplicated and bounded to eight passages. The planner adds one model call only
 for detected compound asks. Decomposition and correction together have a hard bound of five searches:
 one original, up to three subqueries, and one corrective query.
 
-`app/workflow.py` implements these transitions in LangGraph, adapting the author's
+`app/workflow.py` implements these transitions in LangGraph, adapting my
 `Cyber-Ireland-Auto-RAG/graph.py`. It removes report-specific routing and math execution while preserving
 the evidence-grade, rewrite/retrieve, generate, and reflect stages. The correction path has a maximum
 of two total searches and a direct edge to generation. Tests explicitly verify that bound.
@@ -60,7 +60,7 @@ or abstention. Invalid citation numbers fail closed.
 
 These mechanisms are **inspired by corrective and reflective RAG patterns**. They are not reproductions
 of the CRAG research pipeline or the original Self-RAG model trained with reflection tokens. The same
-LLM performs generation and verification, so correlated mistakes remain possible. We do not equate a
+LLM performs generation and verification, so correlated mistakes remain possible. I do not equate a
 passing verifier with proven factual accuracy. Disable individual stages for cost/latency ablations.
 
 ## Conversation memory
@@ -94,8 +94,8 @@ per-user ownership, and background ingestion.
 
 ## Relationship to previous work
 
-The author's [Document_QnA_system](https://github.com/Sajjad01-chaus/Document_QnA_system) implements PDF/OCR
-ingestion, BM25 + vector rank fusion, cross-encoder reranking, and Groq integration. This assignment
-reimplements those patterns with local persistence, corrected page metadata, explicit failure behavior,
+My earlier [Document_QnA_system](https://github.com/Sajjad01-chaus/Document_QnA_system) implements PDF/OCR
+ingestion, BM25 + vector rank fusion, cross-encoder reranking, and Groq integration. For this assignment, I
+reimplemented those patterns with local persistence, corrected page metadata, explicit failure behavior,
 and reproducible evaluation. See `app/ocr.py` for the adapted OCR design. It does not depend on the older
 repository or claim that its code already implemented reflective/corrective stages.

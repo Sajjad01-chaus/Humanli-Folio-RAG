@@ -1,6 +1,6 @@
 # Validation record
 
-Validated locally on Windows with Python 3.12 on 15 November 2026.
+I validated Folio locally on Windows with Python 3.12 on 15 November 2026.
 
 - **39 integration/behavior tests passed.** Covers ingestion, duplicate suppression, exact physical
   pages, filtering, deletion, session isolation, restart persistence, citation validation, provider

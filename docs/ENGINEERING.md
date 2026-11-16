@@ -1,11 +1,11 @@
-# Engineering standards review
+# My engineering decisions
 
-The pre-publication review found incomplete typing, constructor-created dependencies, limited application
-logging, and overly broad adapter error handling. Those gaps were addressed before publication.
+I organized Folio around typed service contracts, replaceable dependencies, structured logging,
+and explicit error handling. These are the engineering decisions behind the implementation.
 
 ## Architecture and responsibilities
 
-The target is a reproducible single-user assignment service. The architecture keeps HTTP handling,
+I designed this as a reproducible single-user assignment service. I keep HTTP handling,
 PDF ingestion, persistence, retrieval, model integration, and graph orchestration separate. It does not
 claim multi-tenant authorization or distributed-worker readiness.
 
@@ -45,15 +45,16 @@ The evaluation runner stops on a dependency failure, writes the observed error, 
 Unexpected CLI failures terminate with structured diagnostics. Known fallback modes are explicitly
 configured and labeled; failed semantic retrieval does not silently downgrade to lexical retrieval.
 
-## Cleanup
+## Repository scope
 
-Temporary quota/model diagnostic scripts, the redundant smoke evaluation, the duplicated regression
-question file, the superseded single-case artifact, and unused screenshot were removed. The retained
-evaluation artifacts document the baseline, public-report behavior, and final targeted regressions.
-Provider/library compatibility pins are intentional runtime constraints, not unused feature dependencies.
+I keep the source, sample documents, evaluation evidence, and automated tests in the repository.
+The tests check behavior that matters for this application, including isolation, citations, error
+propagation, and bounded retries. GitHub Actions runs them on pushes and pull requests.
+Temporary diagnostics, local caches, credentials, and runtime data are excluded.
+I retain compatibility pins because they address runtime constraints.
 
 ## Remaining verification limits
 
-Actual Tesseract recognition and Docker image startup were not exercised on this host. Their optional
+I have not tested actual Tesseract recognition or Docker image startup on my development host. Their optional
 configuration and these limits are documented. Model accuracy evidence remains a small authored
 regression suite, not an independent production benchmark.

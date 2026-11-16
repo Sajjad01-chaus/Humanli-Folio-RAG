@@ -1,6 +1,6 @@
 # Sample document provenance
 
-The three PDFs in `pdfs/` are **fictional operational reports authored for this assignment**.
+I wrote the three PDFs in `pdfs/` as **fictional operational reports for this assignment**.
 Northstar is a fictitious organization. These are not Humanli internal documents or real company policies.
 
 Source of truth: [`corpus.json`](corpus.json). Rebuild with `python -m scripts.make_samples`.
@@ -29,6 +29,6 @@ not authored sample policies, and their original notices and attribution remain 
 Regenerate the download with `python -m scripts.fetch_public_samples`.
 The Folio code license does not relicense third-party publications.
 
-Six additional authored regression cases use this corpus in `evaluation/public-cases.json`.
+I added six regression cases for this corpus in `evaluation/public-cases.json`.
 Their exact expected pages are reference locations, not an exhaustive enumeration of all valid evidence
 pages in these long documents; page-recall results should be interpreted with that limitation.

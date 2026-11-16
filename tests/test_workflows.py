@@ -30,7 +30,7 @@ def test_duplicate_upload_is_idempotent(client, uploaded):
         "Remote work is permitted three days per week.",
         "Customer support tickets are retained for 24 months after closure.",
     )
-    # Use original file: reportlab timestamps may vary across generation.
+    # I reuse the original bytes so PDF metadata cannot affect duplicate detection.
     data = client.get(f"/api/documents/{uploaded['id']}/pdf").content
     result = client.post("/api/documents", files={"files": ("copy.pdf", data, "application/pdf")}).json()
     assert result["documents"][0]["duplicate"] is True
